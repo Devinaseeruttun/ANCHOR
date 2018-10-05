@@ -6,4 +6,4 @@
 <h3><a target="_blank" href="https://github.com/gonzalezem/ANCHOR/blob/master/figure4/ordination_plots_rlog_location.pdf">FIGURE 4 - Ordination Plots</a></h3>
 
 
-<h3><a target="_blank" href="http://htmlpreview.github.io/?https://github.com/gonzalezem/ANCHOR/blob/master/figure4/DA_OTUs_Harmony_vs_Destiny.html">FIGURE 5 - Chord Diagram</a></h3>
+<h3><a target="_blank" href="http://htmlpreview.github.io/?https://github.com/gonzalezem/ANCHOR/blob/master/figure5/DA_OTUs_Harmony_vs_Destiny.html">FIGURE 5 - Chord Diagram</a></h3>
