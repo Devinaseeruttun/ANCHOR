@@ -2,23 +2,37 @@ ANCHOR processes paired-end reads, assembles and annotates them.
 
 What is needed:
 
-Machine: ANCHOR currently runs on linux-like machines
+Environment: ANCHOR currently runs on linux-like machines
 
-dependency:
+Dependency:
  - Mothur (used in assembling contigs. See: https://www.mothur.org/wiki/Installation)
  - BLAST (see: https://www.ncbi.nlm.nih.gov/books/NBK279671)
  - usearch9 (used for chimera detection. See: https://drive5.com/usearch/download.html)
  - R should be previously installed on the machine (see for example: https://www.r-bloggers.com/how-to-install-r-on-linux-ubuntu-16-04-xenial-xerus)
  - python 2.7 should be previously installed on the machine (https://docs.python-guide.org/starting/install/linux)
- - pandas library
+
+
+Python libraries to install:
+- numpy
+- pandas
+- matplotlib
+- seaborn
+- openpyxl
+- biopython
  
- Downloads:
+
+
+Dependencies are ok, what should I do then?
+
+
+Download:
 1. download (or clone) ANCHOR_v1.0 in github (https://github.com/gonzalezem/ANCHOR/tree/master/ANCHOR_v1.0)
 2. If not already within your system, create a link (or copy) of mothur main file into ANCHOR_v1.0/pipelineScripts/mothur. ANCHOR will look for a file called simply mothur within ANCHOR_v1.0/pipelineScripts/mothur/.
 3. Create a link (or copy) of usearch9 main file (usearch9) into ANCHOR_v1.0/pipelineScripts/usearch9 . ANCHOR will look for a file called simply usearch9 within ANCHOR_v1.0/pipelineScripts/usearch9/. 
 4. Build (or link) database(s) BLAST index into ANCHOR_v1.0/db folder. Note that NCBI 16S microbial database index is included in ANCHOR download. The name should be: databasename_index (ex: 16SMicrobial_index, nt_index, rdp_index, silva_index) (see how to build an index: https://www.ncbi.nlm.nih.gov/books/NBK279688)
  
 
+Experiment files:
 ANCHORS needs a few files and folders:
  	1. A folder containing Illumina reads (ex. PEread1_R1.fastq.gz, PEread1_R2.fastq.gz, etc.)
  	2. A design file containing at least 2 columns: Samples and any_Condition_Name. Example:
@@ -29,6 +43,9 @@ PEread3	Condition1
 PEread4	Condition2
 PEread4	Condition2
 PEread6	Condition2
+
+
+Almost running:
 
 Before running ANCHOR, prepare room for it:
 To do so, you just have to run the preparation_script.sh from within ANCHOR folder. This script will check for dependencies and files. It needs 3 arguments:
@@ -59,5 +76,3 @@ A few folders are produced:
 and files:
 	- OTU and anchor sequences (fasta files)
 	- OTU and anchor tables (txt files)
-
-
