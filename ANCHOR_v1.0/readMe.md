@@ -33,15 +33,17 @@
 
 <b><i>Experiment files:</i></b>
 ANCHORS needs a few files and folders:
- 	1. A folder containing Illumina reads (ex. PEread1_R1.fastq.gz, PEread1_R2.fastq.gz, etc.)
- 	2. A design file containing at least 2 columns: Samples and any_Condition_Name. Example:
- Samples	myCondition
-PEread1	Condition1
-PEread2	Condition1
-PEread3	Condition1
-PEread4	Condition2
-PEread4	Condition2
-PEread6	Condition2
+ -  A folder containing Illumina reads (ex. PEread1_R1.fastq.gz, PEread1_R2.fastq.gz, etc.)
+ -  A design file containing at least 2 columns: Samples and any_Condition_Name. Example:
+
+| Samples  | myCondition |
+| ------------- | ------------- |
+| PEread1  |   Condition1  | 
+| PEread2  |   Condition1  | 
+| PEread3  |   Condition1  | 
+| PEread4  |   Condition2  | 
+| PEread4  |   Condition2  | 
+| PEread6  |   Condition2  | 
 
 
 <h2>Almost there:</h2>
@@ -52,19 +54,24 @@ Before running ANCHOR, prepare some room for it. The script <i>preparation_scrip
 		- argument 3: design file (full path)
 
 Example:
-> cd mycomputer/myfolder/ANCHOR_v1.0
-
-> bash preparation_script.sh myIlluminaFiles/my_raw_reads mycomputer/myExperiment mycomputer/myfolder/myconditions.txt
+```
+cd mycomputer/myfolder/ANCHOR_v1.0
+bash preparation_script.sh myIlluminaFiles/my_raw_reads mycomputer/myExperiment mycomputer/myfolder/myconditions.txt
+```
 
 The script can be run multiple times until there is no more error message.
 
 
 <h2>Running ANCHOR:</h2>
-If running the script _preparation_script.sh_ didn't retrun an error, you're good to go. The last output lines from _preparation_script.sh_ run will tell you what to do (basically customizing ANCHOR to your needs and running the main script)
+If running the script preparation_script.sh didn't retrun an error, you're good to go. The last output lines from preparation_script.sh run will tell you what to do (basically customizing ANCHOR to your needs and running the main script).
 
+```
+bash bashMe.sh
+```
 
-Output:
-When anchor is done a folder _Results_a_b_c_d_ will be created (a-d values depend on user's input from metadata/pipe.ini)<br>
+<h2>Output:</h2>
+When anchor is done a folder _Results_a_b_c_d_ will be created (a-d values depend on user's input from metadata/pipe.ini).
+
 A few folders are produced:
  -  Summary (some summary files from ANCHOR run)
  -  STAMP (inut for STAMP software)
