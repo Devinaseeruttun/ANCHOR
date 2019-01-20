@@ -1,18 +1,17 @@
-<h1>ANCHOR processes paired-end reads, assembles and annotates them.</1>
+<h1>ANCHOR processes paired-end reads, assembles and annotates them.</h1>
 
-What is needed:
+<h2>What is needed:</h2>
 
-Environment: ANCHOR currently runs on linux-like machines
+<b><i>Environment</i></b>: ANCHOR currently runs on linux-like machines
 
-Dependency:
+<b><i>Dependencies:</i></b>
  - Mothur (used in assembling contigs. See: https://www.mothur.org/wiki/Installation)
  - BLAST (see: https://www.ncbi.nlm.nih.gov/books/NBK279671)
  - usearch9 (used for chimera detection. See: https://drive5.com/usearch/download.html)
- - R should be previously installed on the machine (see for example: https://www.r-bloggers.com/how-to-install-r-on-linux-ubuntu-16-04-xenial-xerus)
- - python 2.7 should be previously installed on the machine (https://docs.python-guide.org/starting/install/linux)
+ - python 2.7 should be already installed on the machine (https://docs.python-guide.org/starting/install/linux)
 
 
-Python libraries to install:
+<b><i>Python libraries required:</i></b>
 - numpy
 - pandas
 - matplotlib
@@ -22,17 +21,17 @@ Python libraries to install:
  
 
 
-Dependencies are ok, what should I do then?
+<h2>All seems ok, what should I do now?</h2>
 
 
-Download:
+<b><i>Download:</i></b>
 1. download (or clone) ANCHOR_v1.0 in github (https://github.com/gonzalezem/ANCHOR/tree/master/ANCHOR_v1.0)
 2. If not already within your system, create a link (or copy) of mothur main file into ANCHOR_v1.0/pipelineScripts/mothur. ANCHOR will look for a file called simply mothur within ANCHOR_v1.0/pipelineScripts/mothur/.
 3. Create a link (or copy) of usearch9 main file (usearch9) into ANCHOR_v1.0/pipelineScripts/usearch9 . ANCHOR will look for a file called simply usearch9 within ANCHOR_v1.0/pipelineScripts/usearch9/. 
 4. Build (or link) database(s) BLAST index into ANCHOR_v1.0/db folder. Note that NCBI 16S microbial database index is included in ANCHOR download. The name should be: databasename_index (ex: 16SMicrobial_index, nt_index, rdp_index, silva_index) (see how to build an index: https://www.ncbi.nlm.nih.gov/books/NBK279688)
  
 
-Experiment files:
+<b><i>Experiment files:</i></b>
 ANCHORS needs a few files and folders:
  	1. A folder containing Illumina reads (ex. PEread1_R1.fastq.gz, PEread1_R2.fastq.gz, etc.)
  	2. A design file containing at least 2 columns: Samples and any_Condition_Name. Example:
@@ -45,34 +44,34 @@ PEread4	Condition2
 PEread6	Condition2
 
 
-Almost running:
+<h2>Almost there:</h2>
 
-Before running ANCHOR, prepare room for it:
-To do so, you just have to run the preparation_script.sh from within ANCHOR folder. This script will check for dependencies and files. It needs 3 arguments:
+Before running ANCHOR, prepare some room for it. The script <i>preparation_script.sh</i> from within ANCHOR folder will do this. This script will check for dependencies and required files. It needs 3 arguments to be able to run:
 		- argument 1: raw read location (full path)
 		- argument 2: folder from where ANCHOR will be run (full path)
 		- argument 3: design file (full path)
 
 Example:
-cd mycomputer/myfolder/ANCHOR_v1.0
-bash preparation_script.sh myIlluminaFiles/my_raw_reads mycomputer/myExperiment mycomputer/myfolder/myconditions.txt
+> cd mycomputer/myfolder/ANCHOR_v1.0
 
-You can run the script multiple times until there is no more error message. You will have errors if the depencies are not met
+> bash preparation_script.sh myIlluminaFiles/my_raw_reads mycomputer/myExperiment mycomputer/myfolder/myconditions.txt
+
+The script can be run multiple times until there is no more error message.
 
 
-Running ANCHOR:
-If preparation_script.sh didn't retrun an error, you're good to go. The last line of preparation_script.sh will tell you what to do (basically customizing ANCHOR to your needsand running the main script)
+<h2>Running ANCHOR:</h2>
+If running the script _preparation_script.sh_ didn't retrun an error, you're good to go. The last output lines from _preparation_script.sh_ run will tell you what to do (basically customizing ANCHOR to your needs and running the main script)
 
 
 Output:
-When anchor is done a folder Results_a_b_c_d will be created (a-d values depend on user's input from metadata/pipe.ini)
+When anchor is done a folder _Results_a_b_c_d_ will be created (a-d values depend on user's input from metadata/pipe.ini)<br>
 A few folders are produced:
-	- Summary (some summary files from ANCHOR run)
-	- STAMP (inut for STAMP software)
-	- Phyloseq (input for Phyloseq)
-	- MicrobiomeAnalyst (input for microbiomeanalyst.ca)
-	- metagenomeSeq (input for metagenomeSeq)
-	- Excel (OTU table in excel format)
+ -  Summary (some summary files from ANCHOR run)
+ -  STAMP (inut for STAMP software)
+ -  Phyloseq (input for Phyloseq)
+ -  MicrobiomeAnalyst (input for microbiomeanalyst.ca)
+ -  metagenomeSeq (input for metagenomeSeq)
+ -  Excel (OTU table in excel format)
 and files:
-	- OTU and anchor sequences (fasta files)
-	- OTU and anchor tables (txt files)
+ -  OTU and anchor sequences (fasta files)
+ -  OTU and anchor tables (txt files)
