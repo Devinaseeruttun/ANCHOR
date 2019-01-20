@@ -70,7 +70,8 @@ bash bashMe.sh
 ```
 
 <h2>Output:</h2>
-When anchor is done a folder _Results_a_b_c_d_ will be created (a-d values depend on user's input from metadata/pipe.ini).
+<p>
+When anchor is done a folder <b>Results_a_b_c_d</b> will be created (a-d values depend on user's input from metadata/pipe.ini).
 
 A few folders are produced:
  -  Summary (some summary files from ANCHOR run)
@@ -82,9 +83,9 @@ A few folders are produced:
 and files:
  -  OTU and anchor sequences (fasta files)
  -  OTU and anchor tables (txt files)
- 
- 
- <h2>Test run</h2>
+</p>
+
+<h2>Test run</h2>
  Go inside <b>test_run</b> folder and run:
  
  ```
