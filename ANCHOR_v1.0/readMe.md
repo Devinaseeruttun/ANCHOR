@@ -25,9 +25,9 @@
 
 
 <b><i>Download:</i></b>
-1. download (or clone) ANCHOR_v1.0 in github (https://github.com/gonzalezem/ANCHOR/tree/master/ANCHOR_v1.0)
+1. Download (or clone) ANCHOR_v1.0 in github (https://github.com/gonzalezem/ANCHOR/tree/master/ANCHOR_v1.0)
 2. If not already within your system, create a link (or copy) of mothur main file into ANCHOR_v1.0/pipelineScripts/mothur. ANCHOR will look for a file called simply mothur within ANCHOR_v1.0/pipelineScripts/mothur/.
-3. Create a link (or copy) of usearch9 main file (usearch9) into ANCHOR_v1.0/pipelineScripts/usearch9 . ANCHOR will look for a file called simply usearch9 within ANCHOR_v1.0/pipelineScripts/usearch9/. 
+3. Create a link (or copy) of usearch9 main file (usearch9) into ANCHOR_v1.0/pipelineScripts/usearch9. ANCHOR will look for a file called simply usearch9 within ANCHOR_v1.0/pipelineScripts/usearch9/
 4. Build (or link) database(s) BLAST index into ANCHOR_v1.0/db folder. Note that NCBI 16S microbial database index is included in ANCHOR download. The name should be: databasename_index (ex: 16SMicrobial_index, nt_index, rdp_index, silva_index) (see how to build an index: https://www.ncbi.nlm.nih.gov/books/NBK279688)
  
 
