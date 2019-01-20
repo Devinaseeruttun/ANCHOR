@@ -88,5 +88,5 @@ and files:
  Go inside <b>test_run</b> folder and run:
  
  ```
- run_test.sh
+ bash run_test.sh
  ```
