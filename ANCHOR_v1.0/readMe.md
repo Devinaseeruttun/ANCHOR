@@ -1,4 +1,4 @@
-<h1>ANCHOR processes paired-end reads, assembles and annotates them.</h1>
+<h1>ANCHOR: A 16S rRNA gene amplicon pipeline for microbial analysis of multiple environmental samples</h1>
 
 <h2>What is needed:</h2>
 
