@@ -1,6 +1,6 @@
 <h1>ANCHOR: A 16S rRNA gene amplicon pipeline for microbial analysis of multiple environmental samples</h1>
 
-<h2>What is needed:</h2>
+<h2>What is needed to run it?</h2>
 
 <b><i>Environment</i></b>: ANCHOR currently runs on linux-like machines
 
@@ -82,3 +82,9 @@ A few folders are produced:
 and files:
  -  OTU and anchor sequences (fasta files)
  -  OTU and anchor tables (txt files)
+ 
+ 
+ <h2>Test run</h2>
+ Go inside <b>test_run</b> folder and run 
+ ```run_test.sh
+ ```
