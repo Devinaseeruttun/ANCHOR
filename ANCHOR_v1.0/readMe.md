@@ -85,6 +85,8 @@ and files:
  
  
  <h2>Test run</h2>
- Go inside <b>test_run</b> folder and run 
- ```run_test.sh
+ Go inside <b>test_run</b> folder and run:
+ 
+ ```
+ run_test.sh
  ```
