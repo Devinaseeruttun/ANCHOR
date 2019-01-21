@@ -42,16 +42,16 @@ ANCHORS needs a few files and folders:
 | PEread2  |   Condition1  | 
 | PEread3  |   Condition1  | 
 | PEread4  |   Condition2  | 
-| PEread4  |   Condition2  | 
+| PEread5  |   Condition2  | 
 | PEread6  |   Condition2  | 
 
 
 <h2>Almost there:</h2>
 
 Before running ANCHOR, prepare some room for it. The script <i>preparation_script.sh</i> from within the ANCHOR folder will do this. This script will check for dependencies and required files. It needs 3 arguments to be able to run:
-		- argument 1: raw read location (full path)
-		- argument 2: folder from where ANCHOR will be run (full path)
-		- argument 3: design file (full path)
+ -  argument 1: raw read location (full path)
+ -  argument 2: folder from where ANCHOR will be run (full path)
+ -  argument 3: design file (full path)
 
 Example:
 ```
