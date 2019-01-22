@@ -1,6 +1,0 @@
-faSomeRecords is a command line utilities from UCSC.
-
-usage:
-faSomeRecords in.fa listFile out.fa
-options:
--exclude - output sequences not in the list file.
