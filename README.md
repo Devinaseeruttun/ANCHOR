@@ -1,4 +1,7 @@
-# ANCHOR: A 16S rRNA gene amplicon pipeline for microbial analysis of multiple environmental samples
+# ANCHOR
+
+Anchor is a 16S rRNA gene amplicon pipeline for microbial analysis of multiple
+environmental samples.
 
 ## Getting Started
 
