@@ -27,9 +27,9 @@ else
 fi
 
 if [[ -e "${mycond}" && -s "${mycond}" ]];
-then 
+then
 	echo -e "Design file is checked."
-else 
+else
 	echo -e "---\nerror\nYou need a condition file containing at least 2 columns and the first one being named Samples. This is what was given by argument 3: ${mycond} See instructions and come back" && exit 1
 fi
 
@@ -55,7 +55,7 @@ else
 fi
 
 
-#check mothur 
+#check mothur
 target="${dir0}/pipelineScripts/mothur"
 if find "${target}" -mindepth 1 -print -quit 2>/dev/null | grep -q .; then
 	checkMothurName=$(find ${target}/. -type f | grep "mothur" | wc -l)
@@ -77,7 +77,7 @@ fi
 
 
 
-#check usearch9 
+#check usearch9
 target="${dir0}/pipelineScripts/usearch9"
 if find "${target}" -mindepth 1 -print -quit 2>/dev/null | grep -q .; then
 	checkusearch9Name=$(find ${target}/. -type f | grep "usearch9" | wc -l)
@@ -98,7 +98,7 @@ else
 fi
 
 
-#check blastn 
+#check blastn
 checkblastn=$(which blastn | wc -l)
 if [ ${checkblastn} -gt 0 ]; then
 	echo -e "blastn program was found in the system"
