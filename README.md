@@ -10,9 +10,10 @@ environmental samples.
 
 #### Docker
 
-A pre-build docker container containing all dependencies except usearch, which
-has a licence that limits distribution of the binary. Building your own Anchor
-image with your own usearch v9 binary is recommended.
+A pre-build docker image is available that includes all dependencies with the
+exception of usearch, which has a licence that precludes binary distribution. We
+recommend using our image and your own usearch binary to build a complete anchor
+container.
 
 First, register your email addresss at https://drive5.com/usearch/download.html
 for USEARCH v9.2.64 and you will recieve an email with the download URL.
