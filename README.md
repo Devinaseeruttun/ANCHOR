@@ -130,4 +130,4 @@ and files:
  ```
 
 ### Figures From the Article
-Figures [here](tree/master/article).
+Figures [here](article).
