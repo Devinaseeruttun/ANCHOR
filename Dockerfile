@@ -4,7 +4,7 @@ LABEL maintainer="Rob Syme <rob.syme@gmail.com>"
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade -qqy && \
-  apt-get install -y unzip wget libreadline-dev \
+  apt-get install -y unzip zip wget libreadline-dev bc \
   python python-numpy python-pandas python-matplotlib python-seaborn python-openpyxl python-biopython
 
 WORKDIR /opt
