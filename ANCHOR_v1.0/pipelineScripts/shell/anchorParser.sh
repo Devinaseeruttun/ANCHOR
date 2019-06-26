@@ -46,7 +46,8 @@ if [[ -e "${FILE}" && -s "${FILE}" ]];
 then
 	echo -e "${FILE} exists and not empty. We'll skip that part!"
 else
-	ln -nsf ${runDir}/uniqueContigs/${expName}.trim.contigs.good.count_table
+	#ln -nsf ${runDir}/uniqueContigs/${expName}.trim.contigs.good.count_table
+	grep -v "^#" ${runDir}/uniqueContigs/${expName}.trim.contigs.good.count_table > ${expName}.trim.contigs.good.count_table
 	ln -nsf ${runDir}/anchorSelection/anchors_seqList.txt
 	ln -nsf ${runDir}/mergeBlastnTaxonomy/blastnTaxMerged.txt
 	echo -e "Adding True unknown i.e. NoBlastHits to main data"
