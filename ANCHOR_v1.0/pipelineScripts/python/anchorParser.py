@@ -759,8 +759,8 @@ for i in range(1,itercount+2):
         data['ContigCount']=1
     else:
         multiplier = args.inputMultiplier
-        multiFile=pd.read_csv(multiplier, sep='\t')
-        multiFile=multiFile[["Representative_Sequence", "total"]]
+        multiFile = pd.read_csv(multiplier, sep='\t')
+        multiFile = multiFile[["Representative_Sequence", "total"]]
         multiFile = multiFile.rename(columns = {'Representative_Sequence':'queryid'})
         multiFile = multiFile.rename(columns = {'total':'ContigCount'})
         data_check = len(data)
