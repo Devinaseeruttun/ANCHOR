@@ -56,7 +56,7 @@ do
 		else
 			#this script will create a file nt_taxonomy_parsed.dat with 3 columns: accessionNumber	TaxID	Taxonomy
 			python ${dirpipe}/python/NCBI_accession2tax_nt.py -i ${db}_speciesID_list.txt -t ${ntNCBITaxonomyFiles}
-		
+
 			#we will replace orginal taxonomy with nr parsed taxonomy (7 columns). If some accession number were not parsed, these will have NOTFOUND instead
 			join -1 2 -2 1 -t $'\t' -a 1 -o 1.1 1.2 2.2 -e NOTFOUND <(awk 'FNR>1' ${db}_taxonomy_parsed.dat | sort -t $'\t' -k2,2) <(sort -t $'\t' -k1,1 ${curatedTax}/${db}_curated.txt) > ${db}_curated_parsed.txt
 			checkNotFound=$(grep "NOTFOUND" ${db}_curated_parsed.txt | wc -l)
