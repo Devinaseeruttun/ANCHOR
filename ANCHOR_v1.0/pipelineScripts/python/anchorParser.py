@@ -77,7 +77,7 @@ def listToString(mycolumn):
     mycolumn = mycolumn.astype(str).str.replace("nan","")
     mycolumn = mycolumn.astype(str).str.replace('\n', '')
     mycolumn = mycolumn.astype(str).str.strip('"')
-    return mycolumn 
+    return mycolumn
 
 
 def cleanTaxonName(data,mycolumn):
@@ -85,7 +85,7 @@ def cleanTaxonName(data,mycolumn):
    return data
 
 #Custome function to collapse several rows of a dataframe into 1
-RowCollapse = lambda x:";".join(x.astype(str)) 
+RowCollapse = lambda x:";".join(x.astype(str))
 
 def sortCollapsedColumn(df,referenceCol,colName):
     df = df.reset_index(drop=True)
@@ -95,7 +95,7 @@ def sortCollapsedColumn(df,referenceCol,colName):
     s.name = '%s'%colName# needs a name to join
     df = df.drop(["%s"%colName] ,1)
     df = df.join(s) #replace with new
-    #sort 
+    #sort
     df = df.sort_values(by = ["%s"%referenceCol,"%s"%colName])
     #retack subjectid (; separator). That will create a 2 column dataframe (refereceCol as index)
     df2 = df.groupby("%s"%referenceCol)['%s'%colName].apply(';'.join).to_frame('%s'%colName)
@@ -197,13 +197,13 @@ def part4Work(data,prefixgroup):
         df_db['penalty'] = df_db.taxonomy.str.contains(pattern)
         #we'll change True to -1 and False to 0
         df_db['penalty'] = df_db.penalty.astype(int) *(-1)
-        df_db['max_point'] = df_db.groupby('queryid')['penalty'].transform(lambda x: x.max()) 
+        df_db['max_point'] = df_db.groupby('queryid')['penalty'].transform(lambda x: x.max())
         df_db = df_db[df_db['penalty'] == df_db['max_point']]
         #Removing duplicates bitscore for sequences that only have unknowns as hits (i.e. penalty==-1)
         gp=df_db.groupby('penalty')
         df1 = pd.DataFrame()
         df2 = pd.DataFrame()
-        for name, group in gp: 
+        for name, group in gp:
             if name ==-1:
                 group.loc[:,'max_point'] = df_db.groupby('queryid')['bitscore'].transform(lambda x: x.max())
                 group = group[group['bitscore'] == group['max_point']]
@@ -223,7 +223,7 @@ def part4Work(data,prefixgroup):
         df_db = df_db.reset_index(0, drop=True)
         print "Done! df_db has", "{:,}".format(df_db.shape[0]), "records left"
         print "-----------------------------------------\n"
-        
+
 
         if numberOfNucleotidesOff != 0:
             print "\n-----------------------------------------"
@@ -292,7 +292,7 @@ def part4Work(data,prefixgroup):
 
 
         ################################# LAST COMMON MOST ABUNDANT TAXON LABEL:
-        # Ex: 
+        # Ex:
         #taxon6             taxon7
         #Lactobacillus      L. A
         #Lactobacillus      L. B
@@ -309,7 +309,7 @@ def part4Work(data,prefixgroup):
                 df_db.copy().loc[df_db.lowestTaxLevel == i, 'taxon%i'%j] = np.nan
         #Select the most abundant taxon per level and per queryid
         for i in range (1,8,1):
-            #Number of particular taxon1 per query 
+            #Number of particular taxon1 per query
             df_db['t%i_total'%i] = df_db.groupby(['queryid','taxon%i'%i])['taxon%i'%i].transform('count')
             #Highest number of similar taxon1 per query
             df_db['maxt%i'%i] = df_db.groupby('queryid')['t%i_total'%i].transform(lambda x: x.max())
@@ -371,8 +371,8 @@ def part4Work(data,prefixgroup):
             df1 = df1.drop(['HitMaxTaxLevel'],1)
             print "Done! df_db xOFF=N has", "{:,}".format(df1.shape[0]), "records left"
             print "-----------------------------------------\n"
-    
-    
+
+
             print "\n-----------------------------------------"
             print "Remove all hits that do not reach the lowest taxonomic level : xOFF=Y"
             if len(df_db[df_db["%sOff"%numberOfNucleotidesOff] == "Y"]) !=0:
@@ -386,7 +386,7 @@ def part4Work(data,prefixgroup):
             else:
                 print "Not hit has xOFF=Y"
             print "-----------------------------------------\n"
-    
+
             print "\n-----------------------------------------"
             print "Reconstruct main df_db"
             if len(df_db[df_db["%sOff"%numberOfNucleotidesOff] == "Y"]) !=0:
@@ -408,7 +408,7 @@ def part4Work(data,prefixgroup):
             taxa1.columns = ['taxon1', 'taxon2', 'taxon3', 'taxon4', 'taxon5', 'taxon6', 'taxon7']
             df_db = df_db.drop(['taxon1', 'taxon2', 'taxon3', 'taxon4', 'taxon5', 'taxon6', 'taxon7'],1)
             df_db = df_db.join(taxa1, how='inner')
-    
+
             print "Done! df_db has", "{:,}".format(df_db.shape[0]), "records left"
             print "-----------------------------------------\n"
 
@@ -422,7 +422,7 @@ def part4Work(data,prefixgroup):
             df_db = df_db.drop(['HitMaxTaxLevel'],1)
             print "Done! df_db has", "{:,}".format(df_db.shape[0]), "records left"
             print "-----------------------------------------\n"
-    
+
             print "\n-----------------------------------------"
             print "Reconstruct main df_db"
             taxa1 = df_db['taxonomy'].apply(lambda x: pd.Series(x.split(';',)))
@@ -440,7 +440,7 @@ def part4Work(data,prefixgroup):
         outputfile = prefixgroup + '_' + databs + '_Final.txt'
         df_db.to_csv(outputfile, sep = '\t', index = False)
         finalnumberofsequences = len(df_db)
-        
+
         print "\n     OUTPUT INFORMATION:     "
         print "-------------------------------"
         print ('Parsed file : ' + str(outputfile))
@@ -486,12 +486,12 @@ def createAnnotationName(data):
     data.loc[(data['LastCommonTaxon'] == 6) & (data['AmbiguousHits'] > 1), ['taxon6','taxon7']] = data.loc[(data['LastCommonTaxon'] == 6) & (data['AmbiguousHits'] > 1), 'taxon6'].map(str) + "_MS"
     #data.loc[(data['LastCommonTaxon'] == 7) & (data['AmbiguousHits'] > 1), 'taxon7'] = data.loc[(data['LastCommonTaxon'] == 7) & (data['AmbiguousHits'] > 1), 'taxon7'].map(str) + "_MS"
     data.loc[data['AmbiguousHits'] > 1, 'taxonomy'] = data['taxon1'] + ";" + data['taxon2'] + ";" + data['taxon3'] + ";" + data['taxon4'] + ";" + data['taxon5'] + ";" + data['taxon6'] + ";" + data['taxon7']
-    
-    
-    #Some taxonomy have repeated upper levels (like Clostridiales in Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiales;Eubacterium;Eubacterium). Then with the operation just above, 
+
+
+    #Some taxonomy have repeated upper levels (like Clostridiales in Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiales;Eubacterium;Eubacterium). Then with the operation just above,
     # and the one just below, I come to have a problem where ambiguous species with a same name can be of different levels. For example:
     #Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiales;Eubacterium;Eubacterium    will produce    Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiales;Clostridiales_MS;Clostridiales_MS
-    #while 
+    #while
     #Bacteria;Firmicutes;Clostridia;Clostridiales;Lachnospiraceae;Lachnospiraceae;Lachnospiraceae    will produce    Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiales_MS;Clostridiales_MS;Clostridiales_MS
     #They'll both have the same _MS name although their laast taxonomic level will be different.
     #Solution: I will lower the taxonomic level of the first so it will be identical to the last one
@@ -501,7 +501,7 @@ def createAnnotationName(data):
     #2 . create a fake lowestTaxLevel column based on the faketaxons
     print "Parsing the df_db: assigning highest taxon reached for each blast hit"
     df_db_t7 = data.copy()
-    #Create a column with the highest taxon level reached for a hit (fixing it at 7 initially) 
+    #Create a column with the highest taxon level reached for a hit (fixing it at 7 initially)
     df_db_t7['FakeCommonLastTax'] = 7
     #Parsing df_db for taxa that are identical between 2 levels
     index = (df_db_t7["Faketaxon7"] == df_db_t7["Faketaxon6"])
@@ -581,7 +581,7 @@ def mergeMultipleDatabaseAndParse(df):
     df = df.drop(['subjectid'] ,1)
     #now join df to collapsed values in df3
     df = df.merge(df3, on=['queryid'], how='inner')
-    #remove queryid duplicates    
+    #remove queryid duplicates
     df = df.drop_duplicates(["queryid"])
     #Revaluate AmbiguousHits (taking into account between databases)
     #this creates a serie (s) with a new line every separator (here ;)
@@ -595,7 +595,7 @@ def mergeMultipleDatabaseAndParse(df):
     df = df.drop(['AmbiguousHits'] ,1)
     df = df.merge(s2.to_frame(), left_index=True, right_index=True)
     df.loc[df.AmbiguousHits == 1, 'AmbiguousHits'] = 0
-    #re-evaluate taxon1 to taxon7 
+    #re-evaluate taxon1 to taxon7
     df = createAnnotationName(df)
     return df
 
@@ -687,13 +687,13 @@ numberOfGroups=$(wc -l __groupList | cut -d" " -f1)
 regulator=1
 while read i
 do
-    if [ ${regulator} != 1 ]; then 
+    if [ ${regulator} != 1 ]; then
         cat __intersect group_${i}.txt > __temp
         mv __temp group_${i}.txt
     fi
     #extracting the queryid of the last record in the group
     lastqueryid=$(tail -n1 group_${i}.txt | cut -f1)
-    #extracting all this queryid records and putting them into a file (__intersect) so we can add it to the next group 
+    #extracting all this queryid records and putting them into a file (__intersect) so we can add it to the next group
     grep "${lastqueryid}" group_${i}.txt > __intersect
     if [ ${regulator} != ${numberOfGroups} ]; then
         #removing this queryid records to this group
@@ -759,8 +759,8 @@ for i in range(1,itercount+2):
         data['ContigCount']=1
     else:
         multiplier = args.inputMultiplier
-        multiFile=pd.read_csv(multiplier, sep='\t')
-        multiFile=multiFile[["Representative_Sequence", "total"]]
+        multiFile = pd.read_csv(multiplier, sep='\t')
+        multiFile = multiFile[["Representative_Sequence", "total"]]
         multiFile = multiFile.rename(columns = {'Representative_Sequence':'queryid'})
         multiFile = multiFile.rename(columns = {'total':'ContigCount'})
         data_check = len(data)
@@ -776,7 +776,7 @@ for i in range(1,itercount+2):
             print "Check _MISSING_DATA.txt in the output folder"
             sys.exit("Error")
 
-    
+
     part4Work(data,prefixgroup)
 
 
@@ -795,13 +795,13 @@ for databs in alldatabaseList:
     os.system('sed -i \'0,/queryid/! {/queryid/d}\' %s_almostThere_final.txt' %databs)
 
     last_inputfile = databs + "_almostThere_final.txt"
-    
+
     #Main data
     data = pd.read_csv(last_inputfile, sep='\t')
     os.system('rm -f %s_almostThere_final.txt' %databs)
     print "Done! data has", "{:,}".format(data.shape[0]), "records"
     print "-----------------------------------------\n"
-    
+
 
     print "\n-----------------------------------------"
     print "Keep hits with highest identity + coverage values"
@@ -830,9 +830,9 @@ for databs in alldatabaseList:
     data = data.merge(df, on=['queryid'], how='left')
     print "\nDone! df_db has", "{:,}".format(data.shape[0]), "records left"
     print "-----------------------------------------\n"
-  
-    
-        
+
+
+
     print "\n-----------------------------------------"
     print "Create a column listing all the ambiguous hits"
     df = data.drop_duplicates(['queryid','taxon1', 'taxon2', 'taxon3', 'taxon4', 'taxon5', 'taxon6', 'taxon7'])
@@ -846,7 +846,7 @@ for databs in alldatabaseList:
         data.loc[data["%sOff"%numberOfNucleotidesOff] == "Y", 'tax7Ambi'] = data.taxon7 + "*"
     #Merge df and data (i.e add column with the number of ambiguous hits)
     data = data.merge(df, on=['queryid'], how='left')
-    #Change 1 to 0 in the ambiguous column 
+    #Change 1 to 0 in the ambiguous column
     data.loc[data.AmbiguousHits == 1, 'AmbiguousHits'] = 0
     df=[]
     #Prepare for AmbiguousLabels column
@@ -858,7 +858,7 @@ for databs in alldatabaseList:
     data = data.drop(['tax7Ambi'],1)
     print "Done! data has", "{:,}".format(data.shape[0]), "records"
     print "-----------------------------------------\n"
-    
+
     if args.group_accession_id == True:
         print "\n-----------------------------------------"
         print "Now try to find a common home (i.e. subjectid) for all ambiguous results that we cannot separate score-wise"
@@ -871,8 +871,8 @@ for databs in alldatabaseList:
         data = data.drop(['num_totals', 'MaxCommonSubjectID'],1)
         print "Done! data has", "{:,}".format(data.shape[0]), "records"
         print "-----------------------------------------\n"
-    
-    
+
+
     print "\n-----------------------------------------"
     print "Remove remaining ambiguity alphabetically"
     data = data.sort_values(by = ['queryid', 'taxon1', 'taxon2', 'taxon3', 'taxon4', 'taxon5', 'taxon6', 'taxon7']).reset_index(drop=True)
@@ -950,7 +950,7 @@ df1.loc[df1.AmbiguousHits == 1, 'AmbiguousHits'] = 0
 df1 = mergeMultipleDatabaseAndParse(df1)
 
 
-#I'll keep the second best hit annotations. 
+#I'll keep the second best hit annotations.
 df2=mainData.copy()
 #remove the best hits index from df2
 df2.drop(indexToRemove, inplace=True)
@@ -1037,7 +1037,7 @@ if args.primers == True:
                     fastaRejected = []
                 else:
                     fastaRejected = []
-    
+
             print  "Number of anchor sequences containing the exact forward primer:", len(fasta)
             #it's more annoying with reverse as I have to inverse the sequences. No need to reverse the primer as it is already reversed ompared to the amplicons
             reverse = primers.at[i, 'reverse']
@@ -1059,13 +1059,13 @@ if args.primers == True:
             fasta = fasta[fasta.sequenceRev.str.startswith(reverse2) == True]
             fasta = fasta.drop(['sequenceRev'],1)
             print  "Number of anchor sequences containing the exact reverse primer:", len(fasta)
-    
+
             #SECOND PART: REMOVE DUPLICATES AND ADJUST COUNTS
             #count the number of identical sequences
             fasta['UniqSeqCount'] = fasta.groupby(['sequence'])['queryid'].transform('count')
             #create a  column "common to" to see which anchors have the same sequence
             fasta2 = fasta.groupby('sequence')['queryid'].apply(','.join).to_frame("common_to")
-            #join fasta2 to fasta 
+            #join fasta2 to fasta
             fasta2 = fasta2.reset_index(drop=False)
             fasta = fasta.merge(fasta2, on=['sequence'], how='outer')
             #remove the 'sequence' column and change name of orignal sequences
@@ -1077,7 +1077,7 @@ if args.primers == True:
                 data_tempCheck=data_temp
             else:
                 data_tempCheck=data_tempCheck.append(data_temp)
-    
+
             #Cumulate counts from identical primers
             data_temp['CollapsedCounts'] = data_temp.groupby(['common_to'])['ContigCount'].transform('sum')
             #Now we'll check what is the most abundant and best alignment stats per new groups of anchors
@@ -1116,7 +1116,7 @@ if args.primers == True:
             else:
                 data_tempFinal=data_tempFinal.append(data_temp)
                 crib_final=crib_final.append(crib)
-    
+
         #Gather subsets of data
         print "Original data size: ", checkDataLen
         print "New data size: ", len(data_tempFinal)
@@ -1154,7 +1154,7 @@ if output_option == "SubOTU":
     #remove the unknowns
     data_uniq = data_uniq.loc[data_uniq.taxon7 != "TrueUnknown",:]
     data_uniq = data_uniq.sort_values(by = ['subjectid']).reset_index(drop=True)
-    
+
     #rename taxon7 otu with  a sub-level name based on NCBI accession ID
     for i in range (min(data_uniq.FakeCommonLastTax),8,1):
         if len(data_uniq.loc[data_uniq.FakeCommonLastTax == i])>0:
@@ -1165,7 +1165,7 @@ if output_option == "SubOTU":
                     data_uniq.loc[data_uniq.FakeCommonLastTax == i, 'taxon%i'%j] = data_uniq.loc[data_uniq.FakeCommonLastTax == i, 'taxon%i'%j]+'_'+data_uniq.loc[data_uniq.FakeCommonLastTax == i, 'Newtaxon'].astype(str)
             else:
                 data_uniq.loc[data_uniq.FakeCommonLastTax == i, 'taxon%i'%i] = data_uniq.loc[data_uniq.FakeCommonLastTax == i, 'taxon%i'%i]+'_'+data_uniq.loc[data_uniq.FakeCommonLastTax == 7, 'Newtaxon'].astype(str)#Now that we have the right taxon names, we'll merge the 2 dataframe, but before we'll remove common columns names from the first one
-    
+
     #Deal with the unknowns (they all have the same taxonomy but we don't what to collapse them into 1 OTU):
     data_unknowns = data.loc[data.taxon7 == "TrueUnknown",:]
     data_unknowns = data_unknowns.reset_index(drop=True)
@@ -1179,23 +1179,23 @@ if output_option == "SubOTU":
 
     data = data.drop(['taxon1', 'taxon2', 'taxon3', 'taxon4', 'taxon5', 'taxon6', 'taxon7'], 1)
     data_uniq = data_uniq.drop(['FakeCommonLastTax','Newtaxon'], 1)
-    
+
 
 
     data_SUBOTUs= pd.merge(data, data_uniq, how='left', on='subjectid', left_on=None, right_on=None,
                  left_index=False, right_index=False, sort=True,
                  suffixes=('_x', '_y'), indicator=False)
     #Now concatenate the true unknowns with data
-    frames = [data_SUBOTUs, data_unknowns] 
+    frames = [data_SUBOTUs, data_unknowns]
 
     data = pd.concat(frames)
-    
+
     data_temp=[]
     data_uniq=[]
     print "Done."
     print "-----------------------------------------\n"
 
-    
+
 if output_option == "OTU":
     print "\n-----------------------------------------"
     print "OPTION2: We'll organize the data into common taxon7 label (i.e. OTUs)"
@@ -1220,7 +1220,7 @@ if output_option == "denovo":
     print "\n-----------------------------------------"
     print "OPTION3: de novo treatment: no collapsing at all"
     #remove all subjectid duplicates
-    
+
     data_denovo = data.copy()
     #rename taxon7 otu with  a sub-level name based on queryid
     for i in range (min(data_denovo.lowestTaxLevel),8,1):
@@ -1252,4 +1252,3 @@ os.system('rm -f NA_* group_*')
 
 print( '\nWhole process took : ' + str(datetime.now()-startTime) + ' h:min:ss')
 print "anchorParser.py is exiting normally!"
-

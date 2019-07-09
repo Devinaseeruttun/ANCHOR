@@ -50,6 +50,8 @@ summary.seqs(fasta=${expName}.trim.contigs.good.unique.fasta, count=${expName}.t
 EOF
 echo -e "\n\nRun mothur"
 ${dirmothur}/mothur uniqueContigs.mothur
+grep -v '^#' ${expName}.trim.contigs.good.count_table > tmp && mv tmp ${expName}.trim.contigs.good.count_table
+awk '/^>/ {print $1} /^[^>]/ {print $0}' ${expName}.trim.contigs.good.unique.fasta > tmp && mv tmp ${expName}.trim.contigs.good.unique.fasta
 
 #Use a python script to extract length of contig sequences
 python ${dirpipe}/python/fastaparser.py -i ${expName}.trim.contigs.good.unique.fasta -p ${expName}.trim.contigs.good.unique

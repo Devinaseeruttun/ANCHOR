@@ -43,10 +43,11 @@ mkdir -p ${dir0}/anchorParser
 cd ${dir0}/anchorParser
 FILE="blastnTaxMerged_plusUnknowns.txt"
 if [[ -e "${FILE}" && -s "${FILE}" ]];
-then 
+then
 	echo -e "${FILE} exists and not empty. We'll skip that part!"
 else
-	ln -nsf ${runDir}/uniqueContigs/${expName}.trim.contigs.good.count_table
+	#ln -nsf ${runDir}/uniqueContigs/${expName}.trim.contigs.good.count_table
+	grep -v "^#" ${runDir}/uniqueContigs/${expName}.trim.contigs.good.count_table > ${expName}.trim.contigs.good.count_table
 	ln -nsf ${runDir}/anchorSelection/anchors_seqList.txt
 	ln -nsf ${runDir}/mergeBlastnTaxonomy/blastnTaxMerged.txt
 	echo -e "Adding True unknown i.e. NoBlastHits to main data"
@@ -70,7 +71,7 @@ fi
 #Inlude Anchor counts: number of unique sequences above a given threshold
 FILE="anchorsCount.txt"
 if [[ -e "${FILE}" && -s "${FILE}" ]];
-then 
+then
 	echo -e "${FILE} exists and not empty. Skipping multiplier counts calculations."
 else
 	ln -nsf ${runDir}/anchorSelection/anchors_seqList.txt
@@ -94,7 +95,7 @@ fi
 #Parse all hits
 FILE="deNovo_allDatabase_withTrueUnknowns_part4_parsed.txt"
 if [[ -e "${FILE}" && -s "${FILE}" ]];
-then 
+then
 	echo -e "${FILE} exists and not empty. Skipping python suite part4."
 else
 	echo -e "\nPython script suite part 4"
@@ -119,5 +120,3 @@ touch ${successDir}/anchorParser.ok
 
 
 echo -e "\n---\nanchorParser.sh is exiting normally.\nWell done!"
-
-
